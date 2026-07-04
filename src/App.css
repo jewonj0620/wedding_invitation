@@ -503,18 +503,32 @@
 }
 
 .closing {
-  padding: 54px 26px 58px;
+  position: relative;
+  isolation: isolate;
+  padding: 78px 26px 82px;
   text-align: center;
-  color: #fff8ff;
+  color: #3a274b;
   background:
-    linear-gradient(135deg, rgba(47, 29, 76, 0.98), rgba(112, 70, 126, 0.96)),
-    #38214f;
+    linear-gradient(180deg, rgba(255, 250, 255, 0.34), rgba(88, 48, 112, 0.28)),
+    url('./assets/background_theme1.png') center / cover no-repeat,
+    #f3dff5;
+}
+
+.closing::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: '';
+  background:
+    radial-gradient(circle at center, rgba(255, 249, 255, 0.82), rgba(255, 249, 255, 0.44) 48%, rgba(77, 43, 104, 0.34) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(68, 36, 93, 0.22));
 }
 
 .closing p {
   margin: 0;
   font-size: 1.12rem;
   line-height: 1.8;
+  text-shadow: 0 1px 18px rgba(255, 255, 255, 0.72);
 }
 
 .closing strong {
@@ -522,6 +536,8 @@
   margin-top: 22px;
   font-size: 1rem;
   font-weight: 600;
+  color: #5b3b78;
+  text-shadow: 0 1px 18px rgba(255, 255, 255, 0.78);
 }
 
 .contact-page {
