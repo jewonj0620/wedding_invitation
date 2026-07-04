@@ -16,8 +16,25 @@ const couple = {
 const ceremony = {
   date: '2026년 10월 24일 토요일',
   time: '낮 12시 30분',
-  venue: '한국은행 컨퍼런스홀',
+  venue: '한국은행본부 컨퍼런스홀',
 }
+
+const venueSearch = '한국은행본부 컨퍼런스홀'
+const encodedVenueSearch = encodeURIComponent(venueSearch)
+const mapLinks = [
+  {
+    label: '네이버 맵',
+    href: `https://map.naver.com/p/search/${encodedVenueSearch}`,
+  },
+  {
+    label: '카카오맵',
+    href: `https://map.kakao.com/link/search/${encodedVenueSearch}`,
+  },
+  {
+    label: 'T-map',
+    href: `https://www.tmap.co.kr/tmap2/mobile/search.jsp?searchKeyword=${encodedVenueSearch}`,
+  },
+]
 
 const coupleContacts = [
   {
@@ -87,7 +104,6 @@ function App() {
       <section className="cover" aria-label="결혼식 초대장 표지">
         <img className="cover__image" src={heroImage} alt="" />
         <div className="cover__content">
-          <p className="cover__kicker">Wedding Invitation</p>
           <h1 id="invitation-title">
             <span>{couple.bride.name}</span>
             <span className="name-divider" aria-hidden="true">
@@ -95,8 +111,8 @@ function App() {
             </span>
             <span>{couple.groom.name}</span>
           </h1>
-          <p className="cover__date">2026. 10. 24. SAT</p>
-          <p className="cover__time">12:30 PM</p>
+          <p className="cover__date">2026년 10월 24일 토요일</p>
+          <p className="cover__time">낮 12시 30분</p>
         </div>
       </section>
 
@@ -178,6 +194,21 @@ function App() {
           소중한 분들과 한 공간에서 웃고 인사 나누는 시간을 기다리고
           있겠습니다. 편안한 마음으로 오셔서 저희의 시작을 밝혀 주세요.
         </p>
+        <div className="map-card">
+          <iframe
+            title={`${venueSearch} 카카오맵`}
+            src={`https://map.kakao.com/?q=${encodedVenueSearch}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+        <div className="map-actions" aria-label="지도 앱으로 장소 찾기">
+          {mapLinks.map((link) => (
+            <a href={link.href} key={link.label} target="_blank" rel="noreferrer">
+              {link.label}
+            </a>
+          ))}
+        </div>
       </section>
 
       <section className="closing" aria-label="마무리 인사">
@@ -197,7 +228,7 @@ function App() {
           aria-labelledby="host-contact-title"
         >
           <div className="contact-page__bar">
-            <p>Contact</p>
+            <p>연락처</p>
             <button
               className="contact-page__close"
               type="button"
