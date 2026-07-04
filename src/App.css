@@ -576,6 +576,7 @@
 }
 
 .wedding-calendar__days span {
+  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -594,10 +595,35 @@
 }
 
 .wedding-calendar__days .is-wedding-day {
+  isolation: isolate;
   color: #fff8ff;
   font-weight: 900;
+  background: transparent;
+}
+
+.wedding-calendar__days .is-wedding-day::before,
+.wedding-calendar__days .is-wedding-day::after {
+  position: absolute;
+  top: 4px;
+  z-index: -1;
+  width: 17px;
+  height: 27px;
+  content: '';
   background: #7d4ca0;
-  box-shadow: 0 8px 18px rgba(125, 76, 160, 0.28);
+  border-radius: 17px 17px 5px 5px;
+}
+
+.wedding-calendar__days .is-wedding-day::before {
+  left: 16px;
+  filter: drop-shadow(0 8px 14px rgba(125, 76, 160, 0.28));
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.wedding-calendar__days .is-wedding-day::after {
+  left: -1px;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
 }
 
 .venue {
@@ -1260,7 +1286,12 @@
 }
 
 .wedding-calendar__days .is-wedding-day {
-  @apply bg-soft-purple-700 shadow-soft-purple-700/30;
+  @apply text-white;
+}
+
+.wedding-calendar__days .is-wedding-day::before,
+.wedding-calendar__days .is-wedding-day::after {
+  @apply bg-soft-purple-700;
 }
 
 .ui-button {
