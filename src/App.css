@@ -849,7 +849,7 @@
 
 .gift-account__top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
@@ -862,14 +862,8 @@
   word-break: keep-all;
 }
 
-.gift-account__actions {
-  display: grid;
-  justify-items: end;
-  gap: 5px;
-  flex: 0 0 auto;
-}
-
 .gift-copy {
+  flex: 0 0 auto;
   min-height: 30px;
   padding: 6px 8px;
   color: #5b3b78;
@@ -882,18 +876,23 @@
   cursor: pointer;
 }
 
-.gift-account__number {
-  display: grid;
-  gap: 3px;
-  margin: 0;
+.gift-account__bank-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   color: #51445b;
   font-family: var(--sans);
   font-size: 0.78rem;
   line-height: 1.35;
 }
 
-.gift-account__number span:last-child {
+.gift-account__number {
+  margin: -2px 0 0;
   color: #34273f;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.35;
   font-weight: 900;
   word-break: break-all;
 }
@@ -1170,11 +1169,6 @@
 
   .gift-account {
     padding-inline: 8px;
-  }
-
-  .gift-account__top {
-    align-items: start;
-    flex-direction: column;
   }
 
   .host-columns {

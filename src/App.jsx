@@ -473,31 +473,31 @@ function App() {
                             <strong>
                               {person.role} {person.name}
                             </strong>
-                            <div className="gift-account__actions">
-                              <button
-                                className="gift-copy"
-                                type="button"
-                                aria-label={`${person.role} ${person.name} 계좌번호 복사`}
-                                onClick={() => handleCopyAccount(person.account)}
+                            <button
+                              className="gift-copy"
+                              type="button"
+                              aria-label={`${person.role} ${person.name} 계좌번호 복사`}
+                              onClick={() => handleCopyAccount(person.account)}
+                            >
+                              {copiedAccount === person.account ? '완료' : '복사'}
+                            </button>
+                          </div>
+                          <div className="gift-account__bank-row">
+                            <span>{person.bank}</span>
+                            {person.kakaoPayUrl ? (
+                              <a
+                                className="gift-kakao"
+                                href={person.kakaoPayUrl}
+                                aria-label={`${person.role} ${person.name} 카카오페이로 마음 보내기`}
+                                target="_blank"
+                                rel="noreferrer"
                               >
-                                {copiedAccount === person.account ? '완료' : '복사'}
-                              </button>
-                              {person.kakaoPayUrl ? (
-                                <a
-                                  className="gift-kakao"
-                                  href={person.kakaoPayUrl}
-                                  aria-label={`${person.role} ${person.name} 카카오페이로 마음 보내기`}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  <img src={kakaoPayButton} alt="" />
-                                </a>
-                              ) : null}
-                            </div>
+                                <img src={kakaoPayButton} alt="" />
+                              </a>
+                            ) : null}
                           </div>
                           <p className="gift-account__number">
-                            <span>{person.bank}</span>
-                            <span>{person.account}</span>
+                            {person.account}
                           </p>
                         </div>
                       ))}
