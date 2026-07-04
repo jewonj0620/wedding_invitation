@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import heroImage from './assets/theme1.png'
+import kakaoPayButton from './assets/kakaopay.svg'
 import './App.css'
 
 const couple = {
@@ -485,10 +486,11 @@ function App() {
                                 <a
                                   className="gift-kakao"
                                   href={person.kakaoPayUrl}
+                                  aria-label={`${person.role} ${person.name} 카카오페이로 마음 보내기`}
                                   target="_blank"
                                   rel="noreferrer"
                                 >
-                                  KakaoPay
+                                  <img src={kakaoPayButton} alt="" />
                                 </a>
                               ) : null}
                             </div>
