@@ -115,6 +115,7 @@ const extraGalleryImages = galleryImages.slice(initialGalleryCount)
 function App() {
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
   const [isGalleryExpanded, setIsGalleryExpanded] = useState(false)
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null)
 
   return (
     <main className="invitation" aria-labelledby="invitation-title">
@@ -235,7 +236,14 @@ function App() {
         <div className="gallery-grid">
           {initialGalleryImages.map((image) => (
             <figure className="gallery-item" key={image.src}>
-              <img src={image.src} alt={image.alt} loading="lazy" />
+              <button
+                className="gallery-image-button"
+                type="button"
+                aria-label={`${image.alt} 크게 보기`}
+                onClick={() => setSelectedGalleryImage(image)}
+              >
+                <img src={image.src} alt={image.alt} loading="lazy" />
+              </button>
             </figure>
           ))}
         </div>
@@ -248,7 +256,15 @@ function App() {
               <div className="gallery-grid gallery-grid--extra">
                 {extraGalleryImages.map((image) => (
                   <figure className="gallery-item" key={image.src}>
-                    <img src={image.src} alt={image.alt} loading="lazy" />
+                    <button
+                      className="gallery-image-button"
+                      type="button"
+                      tabIndex={isGalleryExpanded ? 0 : -1}
+                      aria-label={`${image.alt} 크게 보기`}
+                      onClick={() => setSelectedGalleryImage(image)}
+                    >
+                      <img src={image.src} alt={image.alt} loading="lazy" />
+                    </button>
                   </figure>
                 ))}
               </div>
@@ -274,6 +290,30 @@ function App() {
         </p>
         <strong>지원과 제원 드림</strong>
       </section>
+
+      {selectedGalleryImage ? (
+        <section
+          className="gallery-viewer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="갤러리 사진 크게 보기"
+          onClick={() => setSelectedGalleryImage(null)}
+        >
+          <button
+            className="gallery-viewer__close"
+            type="button"
+            aria-label="갤러리 사진 닫기"
+            onClick={() => setSelectedGalleryImage(null)}
+          >
+            ×
+          </button>
+          <img
+            src={selectedGalleryImage.src}
+            alt={selectedGalleryImage.alt}
+            onClick={(event) => event.stopPropagation()}
+          />
+        </section>
+      ) : null}
 
       {isHostContactOpen ? (
         <section
