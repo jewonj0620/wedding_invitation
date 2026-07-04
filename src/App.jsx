@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import heroImage from './assets/wedding-hero.png'
 import './App.css'
 
@@ -18,7 +19,69 @@ const ceremony = {
   venue: '한국은행 컨퍼런스홀',
 }
 
+const coupleContacts = [
+  {
+    side: 'groom',
+    label: '신랑',
+    relation: '전명문 / 정남희의 아들',
+    name: '제원',
+    phone: '01067337881',
+  },
+  {
+    side: 'bride',
+    label: '신부',
+    relation: '최철운 / 고난영의 딸',
+    name: '지원',
+    phone: '01097753038',
+  },
+]
+
+const hostContacts = [
+  {
+    side: 'groom',
+    label: '신랑',
+    parents: [
+      {
+        role: '아버지',
+        name: '전명문',
+        phone: '01092177881',
+        message: '01092177881',
+      },
+      {
+        role: '어머니',
+        name: '정남희',
+        phone: '01092187881',
+        message: '01092177881',
+      },
+    ],
+  },
+  {
+    side: 'bride',
+    label: '신부',
+    parents: [
+      {
+        role: '아버지',
+        name: '최철운',
+        phone: '01025865678',
+        message: '01025865678',
+      },
+      {
+        role: '어머니',
+        name: '고난영',
+        phone: '01073453038',
+        message: '01073543038',
+      },
+    ],
+  },
+]
+
+function formatPhone(phone) {
+  return phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+}
+
 function App() {
+  const [isHostContactOpen, setIsHostContactOpen] = useState(false)
+
   return (
     <main className="invitation" aria-labelledby="invitation-title">
       <section className="cover" aria-label="결혼식 초대장 표지">
@@ -39,9 +102,7 @@ function App() {
 
       <section className="intro section">
         <p className="section-kicker">초대합니다</p>
-        <h2>
-          저희 두 사람이 부부로 첫걸음을 내딛습니다.
-        </h2>
+        <h2>저희 두 사람이 부부로 첫걸음을 내딛습니다.</h2>
         <div className="letter">
           <p>
             늘 곁에서 아껴 주신 고마운 분들을 모시고, 작지만 깊은 약속의
@@ -53,17 +114,30 @@ function App() {
           </p>
         </div>
         <div className="people" aria-label="신랑 신부">
-          <div className="person">
-            <span>{couple.bride.label}</span>
-            <strong>{couple.bride.name}</strong>
-            <small>{couple.bride.englishName}</small>
-          </div>
-          <div className="person">
-            <span>{couple.groom.label}</span>
-            <strong>{couple.groom.name}</strong>
-            <small>{couple.groom.englishName}</small>
-          </div>
+          {coupleContacts.map((person) => (
+            <div className={`person person--${person.side}`} key={person.label}>
+              <span>{person.label}</span>
+              <small>{person.relation}</small>
+              <strong>{person.name}</strong>
+              <a
+                className="person__phone"
+                href={`tel:${person.phone}`}
+                aria-label={`${person.name}에게 전화하기`}
+              >
+                <span aria-hidden="true">📞</span>
+                <span>{formatPhone(person.phone)}</span>
+              </a>
+            </div>
+          ))}
         </div>
+        <button
+          className="host-contact-trigger"
+          type="button"
+          onClick={() => setIsHostContactOpen(true)}
+        >
+          <span aria-hidden="true">📞</span>
+          혼주에게 연락하기
+        </button>
       </section>
 
       <section className="details section" aria-labelledby="details-title">
@@ -114,6 +188,63 @@ function App() {
         </p>
         <strong>지원과 제원 드림</strong>
       </section>
+
+      {isHostContactOpen ? (
+        <section
+          className="contact-page"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="host-contact-title"
+        >
+          <div className="contact-page__bar">
+            <p>Contact</p>
+            <button
+              className="contact-page__close"
+              type="button"
+              onClick={() => setIsHostContactOpen(false)}
+            >
+              닫기
+            </button>
+          </div>
+          <header className="contact-page__header">
+            <h2 id="host-contact-title">혼주에게 연락하기</h2>
+          </header>
+
+          <div className="host-columns">
+            {hostContacts.map((group) => (
+              <article
+                className={`host-column host-column--${group.side}`}
+                key={group.label}
+              >
+                <h3>{group.label}</h3>
+                {group.parents.map((parent) => (
+                  <div className="host-person" key={`${group.side}-${parent.role}`}>
+                    <strong>
+                      {parent.role} {parent.name}
+                    </strong>
+                    <div className="host-actions">
+                      <a
+                        href={`tel:${parent.phone}`}
+                        aria-label={`${parent.role} ${parent.name}에게 전화하기`}
+                      >
+                        <span aria-hidden="true">📞</span>
+                        전화
+                      </a>
+                      <a
+                        href={`sms:${parent.message}`}
+                        aria-label={`${parent.role} ${parent.name}에게 문자 보내기`}
+                      >
+                        <span aria-hidden="true">💬</span>
+                        문자
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </main>
   )
 }

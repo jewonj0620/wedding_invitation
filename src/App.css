@@ -170,6 +170,54 @@
   font-family: var(--sans);
   font-size: 0.76rem;
   color: #7c7067;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.person__phone {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 38px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  color: #354a2f;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  background: #eef6e8;
+  border: 1px solid rgba(106, 124, 92, 0.24);
+  border-radius: 8px;
+}
+
+.host-contact-trigger {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 18px;
+  padding: 12px 18px;
+  color: #fffaf3;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 800;
+  background: #43563a;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.person__phone:focus-visible,
+.host-contact-trigger:focus-visible,
+.contact-page__close:focus-visible,
+.host-actions a:focus-visible {
+  outline: 2px solid #2f4f2a;
+  outline-offset: 3px;
 }
 
 .details {
@@ -287,6 +335,148 @@
   font-weight: 600;
 }
 
+.contact-page {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  width: min(100%, 480px);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+  overflow-y: auto;
+  color: #2f2925;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 250, 0.98), rgba(248, 250, 244, 0.98)),
+    #fffdfa;
+  box-shadow: 0 0 0 9999px rgba(36, 30, 26, 0.32);
+}
+
+.contact-page__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.contact-page__bar p {
+  margin: 0;
+  color: #7f6b58;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.contact-page__close {
+  min-height: 38px;
+  padding: 8px 14px;
+  color: #443831;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 800;
+  background: #f2eadf;
+  border: 1px solid rgba(80, 68, 54, 0.16);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.contact-page__header {
+  padding: 34px 0 26px;
+  text-align: center;
+}
+
+.contact-page__header h2 {
+  margin: 0;
+  font-size: 1.58rem;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.host-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.host-column {
+  --side-color: #dce8f4;
+  --side-text: #5c7894;
+  --action-bg: #edf5fb;
+  --action-border: #bdd6ec;
+
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+  padding: 20px 12px 18px;
+  background: #fffdfa;
+  border: 1px solid rgba(80, 68, 54, 0.12);
+  border-top: 8px solid var(--side-color);
+  border-radius: 8px;
+}
+
+.host-column--groom {
+  --side-color: #cfe2f4;
+  --side-text: #52789b;
+  --action-bg: #edf5fb;
+  --action-border: #bdd6ec;
+}
+
+.host-column--bride {
+  --side-color: #f6ced8;
+  --side-text: #b86f83;
+  --action-bg: #fff0f3;
+  --action-border: #edbdc9;
+}
+
+.host-column h3 {
+  margin: 0;
+  color: var(--side-text);
+  font-family: var(--sans);
+  font-size: 1.06rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.host-person {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  text-align: center;
+}
+
+.host-person strong {
+  color: #171311;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  font-weight: 600;
+  word-break: keep-all;
+}
+
+.host-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.host-actions a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  min-height: 38px;
+  padding: 8px 6px;
+  color: var(--side-text);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-decoration: none;
+  background: var(--action-bg);
+  border: 1px solid var(--action-border);
+  border-radius: 8px;
+}
+
 @media (max-width: 380px) {
   .cover {
     padding-inline: 18px;
@@ -310,5 +500,21 @@
   .info-list div {
     grid-template-columns: 64px 1fr;
     gap: 14px;
+  }
+
+  .host-columns {
+    gap: 8px;
+  }
+
+  .host-column {
+    padding-inline: 9px;
+  }
+
+  .host-actions {
+    gap: 5px;
+  }
+
+  .host-actions a {
+    font-size: 0.78rem;
   }
 }
