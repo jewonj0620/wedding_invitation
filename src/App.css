@@ -518,6 +518,14 @@
   border-top: 1px solid rgba(94, 62, 126, 0.12);
 }
 
+.gift-intro {
+  margin: 0 0 18px;
+  color: #66566f;
+  font-size: 0.98rem;
+  line-height: 1.82;
+  word-break: keep-all;
+}
+
 .gift-main-toggle {
   display: inline-flex;
   justify-content: center;
@@ -677,11 +685,6 @@
   background: #ffeb00;
   border: 1px solid rgba(25, 22, 0, 0.16);
   border-radius: 8px;
-}
-
-.gift-kakao--disabled {
-  opacity: 0.52;
-  cursor: not-allowed;
 }
 
 .gallery-viewer {

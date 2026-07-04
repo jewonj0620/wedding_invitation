@@ -124,7 +124,7 @@ const giftAccounts = [
         name: '전제원',
         bank: '국민은행',
         account: '21700204548423',
-        kakaoPayUrl: '',
+        kakaoPayUrl: 'https://qr.kakaopay.com/Ej8syGljZ',
       },
       {
         role: '신랑 아버지',
@@ -151,7 +151,7 @@ const giftAccounts = [
         name: '최지원',
         bank: '국민은행',
         account: '13150204219076',
-        kakaoPayUrl: '',
+        kakaoPayUrl: 'https://qr.kakaopay.com/Ej7peiamn',
       },
       {
         role: '신부 아버지',
@@ -404,6 +404,10 @@ function App() {
       </section>
 
       <section className="gift section" aria-labelledby="gift-title">
+        <p className="gift-intro">
+          먼 곳에서나마 함께 하시고 싶으신 분들께 계좌번호를 안내드립니다.
+          전해주신 마음은 마음에 안고 살아가겠습니다.
+        </p>
         <button
           className={`gift-main-toggle ${isGiftOpen ? 'is-open' : ''}`}
           type="button"
@@ -461,16 +465,7 @@ function App() {
                             >
                               KakaoPay
                             </a>
-                          ) : (
-                            <button
-                              className="gift-kakao gift-kakao--disabled"
-                              type="button"
-                              disabled
-                              aria-label={`${person.role} ${person.name} 카카오페이 송금 링크 준비중`}
-                            >
-                              KakaoPay
-                            </button>
-                          )}
+                          ) : null}
                         </div>
                       ))}
                     </div>
