@@ -114,6 +114,7 @@ const initialGalleryImages = galleryImages.slice(0, initialGalleryCount)
 const extraGalleryImages = galleryImages.slice(initialGalleryCount)
 const october2026LeadingEmptyDays = 4
 const october2026Holidays = new Set([3, 9])
+const coverStars = Array.from({ length: 14 }, (_, index) => index)
 const giftAccounts = [
   {
     side: 'groom',
@@ -224,6 +225,11 @@ function App() {
     <main className="invitation" aria-labelledby="invitation-title">
       <section className="cover" aria-label="결혼식 초대장 표지">
         <img className="cover__image" src={heroImage} alt="" />
+        <div className="cover__stars" aria-hidden="true">
+          {coverStars.map((star) => (
+            <span key={star} />
+          ))}
+        </div>
         <div className="cover__content">
           <h1 id="invitation-title">
             <span>{couple.bride.name}</span>
