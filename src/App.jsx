@@ -224,6 +224,13 @@ function App() {
           <p className="cover__date">2026년 10월 24일 토요일</p>
           <p className="cover__time">낮 12시 30분</p>
         </div>
+        <div className="cover__scroll-hint" aria-hidden="true">
+          <span>스크롤 아래로</span>
+          <span className="cover__scroll-arrows">
+            <span />
+            <span />
+          </span>
+        </div>
       </section>
 
       <section className="intro section">
