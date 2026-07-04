@@ -23,7 +23,7 @@ const mapPlaceName = '한국은행'
 const encodedMapPlaceName = encodeURIComponent(mapPlaceName)
 const mapLatitude = '37.5620000'
 const mapLongitude = '126.9806611'
-const displayMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=126.9778%2C37.5600%2C126.9835%2C37.5640&layer=mapnik&marker=${mapLatitude}%2C${mapLongitude}`
+const displayMapUrl = `https://www.google.com/maps?output=embed&q=${mapLatitude},${mapLongitude}&hl=ko&z=17`
 const mapLinks = [
   {
     label: '네이버 맵',
