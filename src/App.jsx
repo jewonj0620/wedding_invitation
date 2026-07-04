@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import heroImage from './assets/wedding-hero.png'
+import heroImage from './assets/theme1.png'
 import './App.css'
 
 const couple = {
