@@ -16,7 +16,8 @@ const couple = {
 const ceremony = {
   date: '2026년 10월 24일 토요일',
   time: '낮 12시 30분',
-  venue: '한국은행본부 컨퍼런스홀',
+  venue: '한국은행 본부 컨퍼런스홀',
+  address: '서울시 중구 남대문로39',
 }
 
 const mapPlaceName = '한국은행'
@@ -210,10 +211,7 @@ function App() {
       <section className="venue section" aria-labelledby="venue-title">
         <p className="section-kicker">오시는 곳</p>
         <h2 id="venue-title">{ceremony.venue}</h2>
-        <p>
-          소중한 분들과 한 공간에서 웃고 인사 나누는 시간을 기다리고
-          있겠습니다. 편안한 마음으로 오셔서 저희의 시작을 밝혀 주세요.
-        </p>
+        <p>{ceremony.address}</p>
         <div className="map-card">
           <iframe
             title={`${mapPlaceName} 위치 지도`}
