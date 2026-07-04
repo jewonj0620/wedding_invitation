@@ -19,20 +19,23 @@ const ceremony = {
   venue: '한국은행본부 컨퍼런스홀',
 }
 
-const mapSearch = '한국은행본부'
-const encodedMapSearch = encodeURIComponent(mapSearch)
+const mapPlaceName = '한국은행'
+const encodedMapPlaceName = encodeURIComponent(mapPlaceName)
+const mapLatitude = '37.5620000'
+const mapLongitude = '126.9806611'
+const naverMapUrl = 'https://map.naver.com/p/entry/place/12080924?placePath=%2Fhome'
 const mapLinks = [
   {
     label: '네이버 맵',
-    href: `https://map.naver.com/p/search/${encodedMapSearch}`,
+    href: 'https://naver.me/xSFkCOa1',
   },
   {
     label: '카카오맵',
-    href: `https://map.kakao.com/link/search/${encodedMapSearch}`,
+    href: `https://map.kakao.com/link/map/${encodedMapPlaceName},${mapLatitude},${mapLongitude}`,
   },
   {
     label: 'T-map',
-    href: `https://www.tmap.co.kr/tmap2/mobile/search.jsp?searchKeyword=${encodedMapSearch}`,
+    href: `https://www.tmap.co.kr/tmap2/mobile/route.jsp?name=${encodedMapPlaceName}&lon=${mapLongitude}&lat=${mapLatitude}`,
   },
 ]
 
@@ -194,8 +197,8 @@ function App() {
         </p>
         <div className="map-card">
           <iframe
-            title={`${mapSearch} 카카오맵`}
-            src={`https://map.kakao.com/?q=${encodedMapSearch}`}
+            title={`${mapPlaceName} 네이버 지도`}
+            src={naverMapUrl}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
