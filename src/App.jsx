@@ -95,8 +95,26 @@ const hostContacts = [
   },
 ]
 
+const galleryImages = Object.entries(
+  import.meta.glob('./assets/gallery/*.{jpg,jpeg,png,webp,avif}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }),
+)
+  .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
+  .map(([, src], index) => ({
+    src,
+    alt: `지원과 제원의 웨딩 사진 ${index + 1}`,
+  }))
+
+const initialGalleryCount = 6
+const initialGalleryImages = galleryImages.slice(0, initialGalleryCount)
+const extraGalleryImages = galleryImages.slice(initialGalleryCount)
+
 function App() {
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
+  const [isGalleryExpanded, setIsGalleryExpanded] = useState(false)
 
   return (
     <main className="invitation" aria-labelledby="invitation-title">
@@ -210,6 +228,42 @@ function App() {
             </a>
           ))}
         </div>
+      </section>
+
+      <section className="gallery section" aria-labelledby="gallery-title">
+        <h2 id="gallery-title">갤러리</h2>
+        <div className="gallery-grid">
+          {initialGalleryImages.map((image) => (
+            <figure className="gallery-item" key={image.src}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </figure>
+          ))}
+        </div>
+        {extraGalleryImages.length > 0 ? (
+          <>
+            <div
+              className={`gallery-extra ${isGalleryExpanded ? 'is-open' : ''}`}
+              aria-hidden={!isGalleryExpanded}
+            >
+              <div className="gallery-grid gallery-grid--extra">
+                {extraGalleryImages.map((image) => (
+                  <figure className="gallery-item" key={image.src}>
+                    <img src={image.src} alt={image.alt} loading="lazy" />
+                  </figure>
+                ))}
+              </div>
+            </div>
+            <button
+              className={`gallery-toggle ${isGalleryExpanded ? 'is-expanded' : ''}`}
+              type="button"
+              aria-expanded={isGalleryExpanded}
+              onClick={() => setIsGalleryExpanded((current) => !current)}
+            >
+              <span>{isGalleryExpanded ? '접기' : '더보기'}</span>
+              <span className="gallery-toggle__arrow" aria-hidden="true" />
+            </button>
+          </>
+        ) : null}
       </section>
 
       <section className="closing" aria-label="마무리 인사">
