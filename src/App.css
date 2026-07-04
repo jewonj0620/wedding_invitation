@@ -341,6 +341,11 @@
   visibility: hidden;
 }
 
+.wedding-calendar__days .is-holiday {
+  color: #7d4ca0;
+  font-weight: 900;
+}
+
 .wedding-calendar__days .is-wedding-day {
   color: #fff8ff;
   font-weight: 900;

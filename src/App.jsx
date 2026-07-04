@@ -112,6 +112,8 @@ const galleryImages = Object.entries(
 const initialGalleryCount = 6
 const initialGalleryImages = galleryImages.slice(0, initialGalleryCount)
 const extraGalleryImages = galleryImages.slice(initialGalleryCount)
+const october2026LeadingEmptyDays = 4
+const october2026Holidays = new Set([3, 9])
 
 function App() {
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
@@ -207,16 +209,29 @@ function App() {
             <span>토</span>
           </div>
           <div className="wedding-calendar__days">
-            {Array.from({ length: 3 }, (_, index) => (
+            {Array.from({ length: october2026LeadingEmptyDays }, (_, index) => (
               <span className="is-empty" key={`empty-${index}`} />
             ))}
             {Array.from({ length: 31 }, (_, index) => {
               const day = index + 1
+              const isWeddingDay = day === 24
+              const isHoliday = october2026Holidays.has(day)
 
               return (
                 <span
-                  className={day === 24 ? 'is-wedding-day' : ''}
-                  aria-label={day === 24 ? '2026년 10월 24일 예식일' : undefined}
+                  className={[
+                    isWeddingDay ? 'is-wedding-day' : '',
+                    isHoliday ? 'is-holiday' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  aria-label={
+                    isWeddingDay
+                      ? '2026년 10월 24일 예식일'
+                      : isHoliday
+                        ? `2026년 10월 ${day}일 공휴일`
+                        : undefined
+                  }
                   key={day}
                 >
                   {day}
