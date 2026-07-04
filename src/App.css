@@ -849,7 +849,7 @@
 
 .gift-account__top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
 }
@@ -862,8 +862,14 @@
   word-break: keep-all;
 }
 
-.gift-copy {
+.gift-account__actions {
+  display: grid;
+  justify-items: end;
+  gap: 5px;
   flex: 0 0 auto;
+}
+
+.gift-copy {
   min-height: 30px;
   padding: 6px 8px;
   color: #5b3b78;
@@ -896,11 +902,12 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  min-height: 34px;
-  padding: 7px 10px;
+  min-width: 58px;
+  min-height: 26px;
+  padding: 5px 7px;
   color: #191600;
   font-family: var(--sans);
-  font-size: 0.82rem;
+  font-size: 0.68rem;
   font-weight: 900;
   text-decoration: none;
   background: #ffeb00;

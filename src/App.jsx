@@ -472,29 +472,31 @@ function App() {
                             <strong>
                               {person.role} {person.name}
                             </strong>
-                            <button
-                              className="gift-copy"
-                              type="button"
-                              aria-label={`${person.role} ${person.name} 계좌번호 복사`}
-                              onClick={() => handleCopyAccount(person.account)}
-                            >
-                              {copiedAccount === person.account ? '완료' : '복사'}
-                            </button>
+                            <div className="gift-account__actions">
+                              <button
+                                className="gift-copy"
+                                type="button"
+                                aria-label={`${person.role} ${person.name} 계좌번호 복사`}
+                                onClick={() => handleCopyAccount(person.account)}
+                              >
+                                {copiedAccount === person.account ? '완료' : '복사'}
+                              </button>
+                              {person.kakaoPayUrl ? (
+                                <a
+                                  className="gift-kakao"
+                                  href={person.kakaoPayUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  KakaoPay
+                                </a>
+                              ) : null}
+                            </div>
                           </div>
                           <p className="gift-account__number">
                             <span>{person.bank}</span>
                             <span>{person.account}</span>
                           </p>
-                          {person.kakaoPayUrl ? (
-                            <a
-                              className="gift-kakao"
-                              href={person.kakaoPayUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              KakaoPay
-                            </a>
-                          ) : null}
                         </div>
                       ))}
                     </div>
