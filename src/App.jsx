@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import heroImage from './assets/theme1.png'
+import bankBuildingImage from './assets/bank-building.png'
 import kakaoPayButton from './assets/kakaopay.svg'
 import './App.css'
 
@@ -191,12 +192,37 @@ async function copyTextToClipboard(text) {
 }
 
 function App() {
+  const [isOpeningVisible, setIsOpeningVisible] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false
+    }
+
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
   const [isGalleryExpanded, setIsGalleryExpanded] = useState(false)
   const [selectedGalleryImage, setSelectedGalleryImage] = useState(null)
   const [isGiftOpen, setIsGiftOpen] = useState(false)
   const [openGiftSides, setOpenGiftSides] = useState({})
   const [copiedAccount, setCopiedAccount] = useState('')
+
+  useEffect(() => {
+    if (!isOpeningVisible) {
+      return undefined
+    }
+
+    const previousBodyOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const openingTimer = window.setTimeout(() => {
+      setIsOpeningVisible(false)
+    }, 3600)
+
+    return () => {
+      window.clearTimeout(openingTimer)
+      document.body.style.overflow = previousBodyOverflow
+    }
+  }, [isOpeningVisible])
 
   async function handleCopyAccount(account) {
     await copyTextToClipboard(account)
@@ -223,7 +249,21 @@ function App() {
   }
 
   return (
-    <main className="invitation" aria-labelledby="invitation-title">
+    <>
+      {isOpeningVisible ? (
+        <div className="bank-opening" aria-hidden="true">
+          <div className="bank-opening__scene">
+            <div className="bank-opening__building">
+              <img src={bankBuildingImage} alt="" />
+              <div className="bank-opening__tunnel" />
+              <div className="bank-opening__door bank-opening__door--left" />
+              <div className="bank-opening__door bank-opening__door--right" />
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <main className="invitation" aria-labelledby="invitation-title">
       <section className="cover" aria-label="결혼식 초대장 표지">
         <img className="cover__image" src={heroImage} alt="" />
         <div className="cover__stars" aria-hidden="true">
@@ -599,7 +639,8 @@ function App() {
           </div>
         </section>
       ) : null}
-    </main>
+      </main>
+    </>
   )
 }
 
