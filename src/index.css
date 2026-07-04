@@ -1,8 +1,36 @@
-:root {
-  --serif: 'Noto Serif KR', 'Apple SD Gothic Neo', 'Malgun Gothic', serif;
-  --sans: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+@import "tailwindcss";
 
-  font-family: var(--serif);
+@theme {
+  --font-sans: 'Gowun Dodum', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --font-title: 'MaruBuri', 'Gowun Dodum', 'Apple SD Gothic Neo', 'Malgun Gothic', serif;
+
+  --color-soft-purple-50: #fff9fd;
+  --color-soft-purple-100: #f8eefb;
+  --color-soft-purple-200: #ead8f3;
+  --color-soft-purple-300: #d9bde8;
+  --color-soft-purple-400: #bd93d6;
+  --color-soft-purple-500: #9d6bbd;
+  --color-soft-purple-600: #80519f;
+  --color-soft-purple-700: #663f81;
+  --color-soft-purple-800: #513468;
+  --color-soft-purple-900: #3f2a51;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/MaruBuri-Regular.woff') format('woff');
+}
+
+:root {
+  --title: 'MaruBuri', 'Gowun Dodum', 'Apple SD Gothic Neo', 'Malgun Gothic', serif;
+  --serif: var(--title);
+  --sans: 'Gowun Dodum', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+
+  font-family: var(--sans);
   font-size: 16px;
   line-height: 1.5;
   font-weight: 400;

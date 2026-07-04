@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import heroImage from './assets/theme1.png'
 import kakaoPayButton from './assets/kakaopay.svg'
+import { Button } from './components/ui/Button'
+import { buttonVariants } from './components/ui/buttonVariants'
 import './App.css'
 
 const couple = {
@@ -279,11 +281,19 @@ function App() {
               <small>{person.relation}</small>
               <strong>{person.name}</strong>
               <div className="person-actions">
-                <a href={`tel:${person.phone}`} aria-label={`${person.name}에게 전화하기`}>
+                <a
+                  className={buttonVariants({ variant: 'secondary', size: 'sm' })}
+                  href={`tel:${person.phone}`}
+                  aria-label={`${person.name}에게 전화하기`}
+                >
                   <span aria-hidden="true">📞</span>
                   전화
                 </a>
-                <a href={`sms:${person.phone}`} aria-label={`${person.name}에게 문자 보내기`}>
+                <a
+                  className={buttonVariants({ variant: 'secondary', size: 'sm' })}
+                  href={`sms:${person.phone}`}
+                  aria-label={`${person.name}에게 문자 보내기`}
+                >
                   <span aria-hidden="true">💬</span>
                   문자
                 </a>
@@ -291,14 +301,14 @@ function App() {
             </div>
           ))}
         </div>
-        <button
+        <Button
           className="host-contact-trigger"
-          type="button"
+          size="lg"
           onClick={() => setIsHostContactOpen(true)}
         >
           <span aria-hidden="true">📞</span>
           혼주에게 연락하기
-        </button>
+        </Button>
       </section>
 
       <section className="details section" aria-labelledby="details-title">
@@ -378,7 +388,13 @@ function App() {
         </div>
         <div className="map-actions" aria-label="지도 앱으로 장소 찾기">
           {mapLinks.map((link) => (
-            <a href={link.href} key={link.label} target="_blank" rel="noreferrer">
+            <a
+              className={buttonVariants({ variant: 'outline', size: 'sm' })}
+              href={link.href}
+              key={link.label}
+              target="_blank"
+              rel="noreferrer"
+            >
               {link.label}
             </a>
           ))}
@@ -423,15 +439,16 @@ function App() {
                 ))}
               </div>
             </div>
-            <button
+            <Button
               className={`gallery-toggle ${isGalleryExpanded ? 'is-expanded' : ''}`}
-              type="button"
+              variant="outline"
+              size="lg"
               aria-expanded={isGalleryExpanded}
               onClick={() => setIsGalleryExpanded((current) => !current)}
             >
               <span>{isGalleryExpanded ? '접기' : '더보기'}</span>
               <span className="gallery-toggle__arrow" aria-hidden="true" />
-            </button>
+            </Button>
           </>
         ) : null}
       </section>
@@ -441,15 +458,15 @@ function App() {
           먼 곳에서 마음을 보내고 싶으신 분들께 계좌번호를 안내해드립니다.
           전해주신 마음은 마음에 안고 살아가겠습니다.
         </p>
-        <button
+        <Button
           className={`gift-main-toggle ${isGiftOpen ? 'is-open' : ''}`}
-          type="button"
+          size="lg"
           aria-expanded={isGiftOpen}
           onClick={() => setIsGiftOpen((current) => !current)}
         >
           <span id="gift-title">마음 보내실 곳</span>
           <span className="gift-arrow" aria-hidden="true" />
-        </button>
+        </Button>
 
         {isGiftOpen ? (
           <div className="gift-columns">
@@ -458,15 +475,15 @@ function App() {
 
               return (
                 <div className={`gift-side gift-side--${group.side}`} key={group.side}>
-                  <button
+                  <Button
                     className={`gift-side__toggle ${isSideOpen ? 'is-open' : ''}`}
-                    type="button"
+                    variant="secondary"
                     aria-expanded={isSideOpen}
                     onClick={() => toggleGiftSide(group.side)}
                   >
                     <span>{group.label}</span>
                     <span className="gift-arrow" aria-hidden="true" />
-                  </button>
+                  </Button>
 
                   {isSideOpen ? (
                     <div className="gift-account-list">
@@ -476,14 +493,15 @@ function App() {
                             <strong>
                               {person.role} {person.name}
                             </strong>
-                            <button
+                            <Button
                               className="gift-copy"
-                              type="button"
+                              variant="outline"
+                              size="sm"
                               aria-label={`${person.role} ${person.name} 계좌번호 복사`}
                               onClick={() => handleCopyAccount(person.account)}
                             >
                               {copiedAccount === person.account ? '완료' : '복사'}
-                            </button>
+                            </Button>
                           </div>
                           <div className="gift-account__bank-row">
                             <span>{person.bank}</span>
@@ -530,14 +548,15 @@ function App() {
           aria-label="갤러리 사진 크게 보기"
           onClick={() => setSelectedGalleryImage(null)}
         >
-          <button
+          <Button
             className="gallery-viewer__close"
-            type="button"
+            variant="ghost"
+            size="icon"
             aria-label="갤러리 사진 닫기"
             onClick={() => setSelectedGalleryImage(null)}
           >
             ×
-          </button>
+          </Button>
           <img
             src={selectedGalleryImage.src}
             alt={selectedGalleryImage.alt}
@@ -555,13 +574,14 @@ function App() {
         >
           <div className="contact-page__bar">
             <p>연락처</p>
-            <button
+            <Button
               className="contact-page__close"
-              type="button"
+              variant="outline"
+              size="sm"
               onClick={() => setIsHostContactOpen(false)}
             >
               닫기
-            </button>
+            </Button>
           </div>
           <header className="contact-page__header">
             <h2 id="host-contact-title">혼주에게 연락하기</h2>
@@ -581,6 +601,7 @@ function App() {
                     </strong>
                     <div className="host-actions">
                       <a
+                        className={buttonVariants({ variant: 'secondary', size: 'sm' })}
                         href={`tel:${parent.phone}`}
                         aria-label={`${parent.role} ${parent.name}에게 전화하기`}
                       >
@@ -588,6 +609,7 @@ function App() {
                         전화
                       </a>
                       <a
+                        className={buttonVariants({ variant: 'secondary', size: 'sm' })}
                         href={`sms:${parent.message}`}
                         aria-label={`${parent.role} ${parent.name}에게 문자 보내기`}
                       >
