@@ -233,7 +233,7 @@ function App() {
         </div>
         <div className="cover__content">
           <p className="cover__opening-line">
-            우리들의 결혼식에 초대합니다. {couple.bride.name} 🤍 {couple.groom.name}
+            우리들의 결혼식에 초대합니다.
           </p>
           <h1 id="invitation-title">
             <span>{couple.bride.name}</span>
