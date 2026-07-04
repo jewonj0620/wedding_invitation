@@ -19,20 +19,20 @@ const ceremony = {
   venue: '한국은행본부 컨퍼런스홀',
 }
 
-const venueSearch = '한국은행본부 컨퍼런스홀'
-const encodedVenueSearch = encodeURIComponent(venueSearch)
+const mapSearch = '한국은행본부'
+const encodedMapSearch = encodeURIComponent(mapSearch)
 const mapLinks = [
   {
     label: '네이버 맵',
-    href: `https://map.naver.com/p/search/${encodedVenueSearch}`,
+    href: `https://map.naver.com/p/search/${encodedMapSearch}`,
   },
   {
     label: '카카오맵',
-    href: `https://map.kakao.com/link/search/${encodedVenueSearch}`,
+    href: `https://map.kakao.com/link/search/${encodedMapSearch}`,
   },
   {
     label: 'T-map',
-    href: `https://www.tmap.co.kr/tmap2/mobile/search.jsp?searchKeyword=${encodedVenueSearch}`,
+    href: `https://www.tmap.co.kr/tmap2/mobile/search.jsp?searchKeyword=${encodedMapSearch}`,
   },
 ]
 
@@ -196,8 +196,8 @@ function App() {
         </p>
         <div className="map-card">
           <iframe
-            title={`${venueSearch} 카카오맵`}
-            src={`https://map.kakao.com/?q=${encodedVenueSearch}`}
+            title={`${mapSearch} 카카오맵`}
+            src={`https://map.kakao.com/?q=${encodedMapSearch}`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
