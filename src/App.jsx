@@ -92,10 +92,6 @@ const hostContacts = [
   },
 ]
 
-function formatPhone(phone) {
-  return phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
-}
-
 function App() {
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
 
@@ -140,8 +136,9 @@ function App() {
                 href={`tel:${person.phone}`}
                 aria-label={`${person.name}에게 전화하기`}
               >
-                <span aria-hidden="true">📞</span>
-                <span>{formatPhone(person.phone)}</span>
+                <span className="person__phone-icon" aria-hidden="true">
+                  📞
+                </span>
               </a>
             </div>
           ))}
