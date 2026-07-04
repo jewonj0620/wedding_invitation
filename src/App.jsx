@@ -131,15 +131,16 @@ function App() {
               <span>{person.label}</span>
               <small>{person.relation}</small>
               <strong>{person.name}</strong>
-              <a
-                className="person__phone"
-                href={`tel:${person.phone}`}
-                aria-label={`${person.name}에게 전화하기`}
-              >
-                <span className="person__phone-icon" aria-hidden="true">
-                  📞
-                </span>
-              </a>
+              <div className="person-actions">
+                <a href={`tel:${person.phone}`} aria-label={`${person.name}에게 전화하기`}>
+                  <span aria-hidden="true">📞</span>
+                  전화
+                </a>
+                <a href={`sms:${person.phone}`} aria-label={`${person.name}에게 문자 보내기`}>
+                  <span aria-hidden="true">💬</span>
+                  문자
+                </a>
+              </div>
             </div>
           ))}
         </div>
