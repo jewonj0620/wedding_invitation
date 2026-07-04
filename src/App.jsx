@@ -114,11 +114,100 @@ const initialGalleryImages = galleryImages.slice(0, initialGalleryCount)
 const extraGalleryImages = galleryImages.slice(initialGalleryCount)
 const october2026LeadingEmptyDays = 4
 const october2026Holidays = new Set([3, 9])
+const giftAccounts = [
+  {
+    side: 'groom',
+    label: '신랑측',
+    accounts: [
+      {
+        role: '신랑',
+        name: '전제원',
+        bank: '국민은행',
+        account: '21700204548423',
+        kakaoPayUrl: '',
+      },
+      {
+        role: '신랑 아버지',
+        name: '전명문',
+        bank: '기업은행',
+        account: '01092177881',
+        kakaoPayUrl: '',
+      },
+      {
+        role: '신랑 어머니',
+        name: '정남희',
+        bank: '기업은행',
+        account: '01092187881',
+        kakaoPayUrl: '',
+      },
+    ],
+  },
+  {
+    side: 'bride',
+    label: '신부측',
+    accounts: [
+      {
+        role: '신부',
+        name: '최지원',
+        bank: '국민은행',
+        account: '13150204219076',
+        kakaoPayUrl: '',
+      },
+      {
+        role: '신부 아버지',
+        name: '최철운',
+        bank: 'SC제일은행',
+        account: '51220164527',
+        kakaoPayUrl: '',
+      },
+      {
+        role: '신부 어머니',
+        name: '고난영',
+        bank: '국민은행',
+        account: '118240051886',
+        kakaoPayUrl: '',
+      },
+    ],
+  },
+]
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  textarea.setAttribute('readonly', '')
+  textarea.style.position = 'fixed'
+  textarea.style.opacity = '0'
+  document.body.append(textarea)
+  textarea.select()
+  document.execCommand('copy')
+  textarea.remove()
+}
 
 function App() {
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
   const [isGalleryExpanded, setIsGalleryExpanded] = useState(false)
   const [selectedGalleryImage, setSelectedGalleryImage] = useState(null)
+  const [isGiftOpen, setIsGiftOpen] = useState(false)
+  const [openGiftSides, setOpenGiftSides] = useState({})
+  const [copiedAccount, setCopiedAccount] = useState('')
+
+  async function handleCopyAccount(account) {
+    await copyTextToClipboard(account)
+    setCopiedAccount(account)
+    window.setTimeout(() => setCopiedAccount(''), 1400)
+  }
+
+  function toggleGiftSide(side) {
+    setOpenGiftSides((current) => ({
+      ...current,
+      [side]: !current[side],
+    }))
+  }
 
   return (
     <main className="invitation" aria-labelledby="invitation-title">
@@ -311,6 +400,85 @@ function App() {
               <span className="gallery-toggle__arrow" aria-hidden="true" />
             </button>
           </>
+        ) : null}
+      </section>
+
+      <section className="gift section" aria-labelledby="gift-title">
+        <button
+          className={`gift-main-toggle ${isGiftOpen ? 'is-open' : ''}`}
+          type="button"
+          aria-expanded={isGiftOpen}
+          onClick={() => setIsGiftOpen((current) => !current)}
+        >
+          <span id="gift-title">마음 보내실 곳</span>
+          <span className="gift-arrow" aria-hidden="true" />
+        </button>
+
+        {isGiftOpen ? (
+          <div className="gift-columns">
+            {giftAccounts.map((group) => {
+              const isSideOpen = Boolean(openGiftSides[group.side])
+
+              return (
+                <div className={`gift-side gift-side--${group.side}`} key={group.side}>
+                  <button
+                    className={`gift-side__toggle ${isSideOpen ? 'is-open' : ''}`}
+                    type="button"
+                    aria-expanded={isSideOpen}
+                    onClick={() => toggleGiftSide(group.side)}
+                  >
+                    <span>{group.label}</span>
+                    <span className="gift-arrow" aria-hidden="true" />
+                  </button>
+
+                  {isSideOpen ? (
+                    <div className="gift-account-list">
+                      {group.accounts.map((person) => (
+                        <div className="gift-account" key={`${group.side}-${person.name}`}>
+                          <div className="gift-account__top">
+                            <strong>
+                              {person.role} {person.name}
+                            </strong>
+                            <button
+                              className="gift-copy"
+                              type="button"
+                              aria-label={`${person.role} ${person.name} 계좌번호 복사`}
+                              onClick={() => handleCopyAccount(person.account)}
+                            >
+                              {copiedAccount === person.account ? '완료' : '복사'}
+                            </button>
+                          </div>
+                          <p className="gift-account__number">
+                            <span>{person.bank}</span>
+                            <span>{person.account}</span>
+                          </p>
+                          {person.kakaoPayUrl ? (
+                            <a
+                              className="gift-kakao"
+                              href={person.kakaoPayUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              KakaoPay
+                            </a>
+                          ) : (
+                            <button
+                              className="gift-kakao gift-kakao--disabled"
+                              type="button"
+                              disabled
+                              aria-label={`${person.role} ${person.name} 카카오페이 송금 링크 준비중`}
+                            >
+                              KakaoPay
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              )
+            })}
+          </div>
         ) : null}
       </section>
 

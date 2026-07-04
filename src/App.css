@@ -214,6 +214,10 @@
 .host-contact-trigger:focus-visible,
 .gallery-image-button:focus-visible,
 .gallery-toggle:focus-visible,
+.gift-main-toggle:focus-visible,
+.gift-side__toggle:focus-visible,
+.gift-copy:focus-visible,
+.gift-kakao:focus-visible,
 .gallery-viewer__close:focus-visible,
 .map-actions a:focus-visible,
 .contact-page__close:focus-visible,
@@ -508,6 +512,178 @@
   transform: translateY(2px) rotate(225deg);
 }
 
+.gift {
+  text-align: center;
+  background: #fff9fd;
+  border-top: 1px solid rgba(94, 62, 126, 0.12);
+}
+
+.gift-main-toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 18px;
+  color: #fff8ff;
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 600;
+  background: #5b3b78;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gift-arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 220ms ease;
+}
+
+.gift-main-toggle.is-open .gift-arrow,
+.gift-side__toggle.is-open .gift-arrow {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.gift-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+.gift-side {
+  --side-color: #d8c7ef;
+  --side-text: #5b3b78;
+  --side-bg: #fbf6ff;
+
+  min-width: 0;
+  padding: 10px;
+  background: var(--side-bg);
+  border: 1px solid rgba(94, 62, 126, 0.12);
+  border-top: 8px solid var(--side-color);
+  border-radius: 8px;
+}
+
+.gift-side--groom {
+  --side-color: #cfe2f4;
+  --side-text: #52789b;
+  --side-bg: #f7fbff;
+}
+
+.gift-side--bride {
+  --side-color: #f6ced8;
+  --side-text: #b86f83;
+  --side-bg: #fff8fb;
+}
+
+.gift-side__toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 8px;
+  color: var(--side-text);
+  font-family: var(--sans);
+  font-size: 0.94rem;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(94, 62, 126, 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gift-account-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.gift-account {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 10px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(94, 62, 126, 0.12);
+  border-radius: 8px;
+}
+
+.gift-account__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.gift-account__top strong {
+  color: #2f2438;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  font-weight: 600;
+  word-break: keep-all;
+}
+
+.gift-copy {
+  flex: 0 0 auto;
+  min-height: 30px;
+  padding: 6px 8px;
+  color: #5b3b78;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 900;
+  background: #f4eaf9;
+  border: 1px solid rgba(126, 83, 152, 0.24);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gift-account__number {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  color: #51445b;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.gift-account__number span:last-child {
+  color: #34273f;
+  font-weight: 900;
+  word-break: break-all;
+}
+
+.gift-kakao {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 10px;
+  color: #191600;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-decoration: none;
+  background: #ffeb00;
+  border: 1px solid rgba(25, 22, 0, 0.16);
+  border-radius: 8px;
+}
+
+.gift-kakao--disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
 .gallery-viewer {
   position: fixed;
   inset: 0;
@@ -750,6 +926,23 @@
     grid-template-columns: 84px 1fr;
     gap: 14px;
     padding: 18px 16px;
+  }
+
+  .gift-columns {
+    gap: 8px;
+  }
+
+  .gift-side {
+    padding-inline: 8px;
+  }
+
+  .gift-account {
+    padding-inline: 8px;
+  }
+
+  .gift-account__top {
+    align-items: start;
+    flex-direction: column;
   }
 
   .host-columns {
