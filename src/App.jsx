@@ -5,12 +5,10 @@ const couple = {
   bride: {
     label: '신부',
     name: '최지원',
-    englishName: 'Jiwon Choi',
   },
   groom: {
     label: '신랑',
     name: '전제원',
-    englishName: 'Jewon Jeon',
   },
 }
 
@@ -34,9 +32,6 @@ function App() {
             </span>
             <span>{couple.groom.name}</span>
           </h1>
-          <p className="cover__english">
-            {couple.bride.englishName} &amp; {couple.groom.englishName}
-          </p>
           <p className="cover__date">2026. 10. 24. SAT</p>
           <p className="cover__time">12:30 PM</p>
         </div>
@@ -45,8 +40,6 @@ function App() {
       <section className="intro section">
         <p className="section-kicker">초대합니다</p>
         <h2>
-          서로에게 가장 다정한 계절이 되어 주며
-          <br />
           저희 두 사람이 부부로 첫걸음을 내딛습니다.
         </h2>
         <div className="letter">
