@@ -434,7 +434,7 @@ function App() {
 
       <section className="gift section" aria-labelledby="gift-title">
         <p className="gift-intro">
-          먼 곳에서나마 함께 하시고 싶으신 분들께 계좌번호를 안내드립니다.
+          먼 곳에서 마음을 보내고 싶으신 분들께 계좌번호를 안내해드립니다.
           전해주신 마음은 마음에 안고 살아가겠습니다.
         </p>
         <button
