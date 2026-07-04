@@ -23,7 +23,7 @@ const mapPlaceName = '한국은행'
 const encodedMapPlaceName = encodeURIComponent(mapPlaceName)
 const mapLatitude = '37.5620000'
 const mapLongitude = '126.9806611'
-const naverMapUrl = 'https://map.naver.com/p/entry/place/12080924?placePath=%2Fhome'
+const displayMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=126.9778%2C37.5600%2C126.9835%2C37.5640&layer=mapnik&marker=${mapLatitude}%2C${mapLongitude}`
 const mapLinks = [
   {
     label: '네이버 맵',
@@ -216,8 +216,8 @@ function App() {
         </p>
         <div className="map-card">
           <iframe
-            title={`${mapPlaceName} 네이버 지도`}
-            src={naverMapUrl}
+            title={`${mapPlaceName} 위치 지도`}
+            src={displayMapUrl}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
