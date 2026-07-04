@@ -1,0 +1,49 @@
+:root {
+  --serif: 'Noto Serif KR', 'Apple SD Gothic Neo', 'Malgun Gothic', serif;
+  --sans: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #342d29;
+  background: #ede7dd;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: #ede7dd;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgba(67, 86, 58, 0.08), rgba(144, 109, 83, 0.1)),
+    #ede7dd;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+::selection {
+  color: #fffaf3;
+  background: #6f8464;
+}
