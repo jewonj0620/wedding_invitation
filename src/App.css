@@ -276,31 +276,76 @@
   margin: 0;
 }
 
-.info-list {
-  margin: 30px 0 0;
-  border-top: 1px solid rgba(94, 62, 126, 0.14);
+.wedding-calendar {
+  margin-top: 28px;
+  padding: 20px 16px 18px;
+  background: rgba(255, 250, 253, 0.82);
+  border: 1px solid rgba(126, 83, 152, 0.2);
+  border-radius: 8px;
 }
 
-.info-list div {
-  display: grid;
-  grid-template-columns: 76px 1fr;
-  gap: 18px;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(94, 62, 126, 0.14);
-}
-
-.info-list dt {
+.wedding-calendar__header {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+  color: #5b3b78;
   font-family: var(--sans);
+}
+
+.wedding-calendar__header span {
   font-size: 0.82rem;
   font-weight: 800;
-  color: #8a5b9c;
 }
 
-.info-list dd {
-  margin: 0;
+.wedding-calendar__header strong {
+  font-size: 1.18rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.wedding-calendar__weekdays,
+.wedding-calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+}
+
+.wedding-calendar__weekdays {
+  margin-top: 18px;
+  color: #8a5b9c;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.wedding-calendar__days {
+  row-gap: 8px;
+  margin-top: 12px;
   color: #51445b;
-  line-height: 1.6;
-  word-break: keep-all;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.wedding-calendar__days span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+}
+
+.wedding-calendar__days .is-empty {
+  visibility: hidden;
+}
+
+.wedding-calendar__days .is-wedding-day {
+  color: #fff8ff;
+  font-weight: 900;
+  background: #7d4ca0;
+  box-shadow: 0 8px 18px rgba(125, 76, 160, 0.28);
 }
 
 .venue {
@@ -700,11 +745,6 @@
     grid-template-columns: 84px 1fr;
     gap: 14px;
     padding: 18px 16px;
-  }
-
-  .info-list div {
-    grid-template-columns: 64px 1fr;
-    gap: 14px;
   }
 
   .host-columns {

@@ -192,20 +192,39 @@ function App() {
           </div>
         </div>
 
-        <dl className="info-list">
-          <div>
-            <dt>일시</dt>
-            <dd>
-              {ceremony.date}
-              <br />
-              {ceremony.time}
-            </dd>
+        <div className="wedding-calendar" aria-label="2026년 10월 달력">
+          <div className="wedding-calendar__header">
+            <span>2026</span>
+            <strong>10월</strong>
           </div>
-          <div>
-            <dt>장소</dt>
-            <dd>{ceremony.venue}</dd>
+          <div className="wedding-calendar__weekdays" aria-hidden="true">
+            <span>일</span>
+            <span>월</span>
+            <span>화</span>
+            <span>수</span>
+            <span>목</span>
+            <span>금</span>
+            <span>토</span>
           </div>
-        </dl>
+          <div className="wedding-calendar__days">
+            {Array.from({ length: 3 }, (_, index) => (
+              <span className="is-empty" key={`empty-${index}`} />
+            ))}
+            {Array.from({ length: 31 }, (_, index) => {
+              const day = index + 1
+
+              return (
+                <span
+                  className={day === 24 ? 'is-wedding-day' : ''}
+                  aria-label={day === 24 ? '2026년 10월 24일 예식일' : undefined}
+                  key={day}
+                >
+                  {day}
+                </span>
+              )
+            })}
+          </div>
+        </div>
       </section>
 
       <section className="venue section" aria-labelledby="venue-title">
