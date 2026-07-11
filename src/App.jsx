@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import heroImage from './assets/theme1.png'
 import kakaoPayButton from './assets/kakaopay.svg'
 import { Button } from './components/ui/Button'
@@ -99,7 +99,7 @@ const hostContacts = [
   },
 ]
 
-const galleryImages = Object.entries(
+const sortedGalleryImages = Object.entries(
   import.meta.glob('./assets/gallery/*.{jpg,jpeg,png,webp,avif}', {
     eager: true,
     query: '?url',
@@ -107,14 +107,18 @@ const galleryImages = Object.entries(
   }),
 )
   .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
-  .map(([, src], index) => ({
+
+const reorderedGalleryImages = [
+  sortedGalleryImages[0],
+  sortedGalleryImages.at(-1),
+  ...sortedGalleryImages.slice(1, -1),
+].filter(Boolean)
+
+const galleryImages = reorderedGalleryImages.map(([, src], index) => ({
     src,
     alt: `지원과 제원의 웨딩 사진 ${index + 1}`,
   }))
 
-const initialGalleryCount = 6
-const initialGalleryImages = galleryImages.slice(0, initialGalleryCount)
-const extraGalleryImages = galleryImages.slice(initialGalleryCount)
 const october2026LeadingEmptyDays = 4
 const october2026Holidays = new Set([3, 9])
 const coverStars = Array.from({ length: 14 }, (_, index) => index)
@@ -194,8 +198,8 @@ async function copyTextToClipboard(text) {
 
 function App() {
   const [isHostContactOpen, setIsHostContactOpen] = useState(false)
-  const [isGalleryExpanded, setIsGalleryExpanded] = useState(false)
-  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null)
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0)
+  const galleryTrackRef = useRef(null)
   const [isGiftOpen, setIsGiftOpen] = useState(false)
   const [openGiftSides, setOpenGiftSides] = useState({})
   const [copiedAccount, setCopiedAccount] = useState('')
@@ -222,6 +226,27 @@ function App() {
         : 'smooth',
       block: 'start',
     })
+  }
+
+  function handleGalleryScroll(event) {
+    const track = event.currentTarget
+    const nextIndex = Math.round(track.scrollLeft / track.clientWidth)
+
+    if (nextIndex !== activeGalleryIndex) {
+      setActiveGalleryIndex(nextIndex)
+    }
+  }
+
+  function selectGalleryImage(index) {
+    const track = galleryTrackRef.current
+
+    track?.scrollTo({
+      left: index * track.clientWidth,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'auto'
+        : 'smooth',
+    })
+    setActiveGalleryIndex(index)
   }
 
   return (
@@ -403,54 +428,38 @@ function App() {
 
       <section className="gallery section" aria-labelledby="gallery-title">
         <h2 id="gallery-title">갤러리</h2>
-        <div className="gallery-grid">
-          {initialGalleryImages.map((image) => (
-            <figure className="gallery-item" key={image.src}>
-              <button
-                className="gallery-image-button"
-                type="button"
-                aria-label={`${image.alt} 크게 보기`}
-                onClick={() => setSelectedGalleryImage(image)}
-              >
-                <img src={image.src} alt={image.alt} loading="lazy" />
-              </button>
+        <div
+          className="gallery-carousel"
+          ref={galleryTrackRef}
+          onScroll={handleGalleryScroll}
+          aria-label="웨딩 사진 갤러리"
+        >
+          {galleryImages.map((image, index) => (
+            <figure
+              className={`gallery-slide ${index === 2 || index === 3 ? 'gallery-slide--fill' : ''}`}
+              key={image.src}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
             </figure>
           ))}
         </div>
-        {extraGalleryImages.length > 0 ? (
-          <>
-            <div
-              className={`gallery-extra ${isGalleryExpanded ? 'is-open' : ''}`}
-              aria-hidden={!isGalleryExpanded}
-            >
-              <div className="gallery-grid gallery-grid--extra">
-                {extraGalleryImages.map((image) => (
-                  <figure className="gallery-item" key={image.src}>
-                    <button
-                      className="gallery-image-button"
-                      type="button"
-                      tabIndex={isGalleryExpanded ? 0 : -1}
-                      aria-label={`${image.alt} 크게 보기`}
-                      onClick={() => setSelectedGalleryImage(image)}
-                    >
-                      <img src={image.src} alt={image.alt} loading="lazy" />
-                    </button>
-                  </figure>
-                ))}
-              </div>
-            </div>
-            <Button
-              className={`gallery-toggle ${isGalleryExpanded ? 'is-expanded' : ''}`}
-              variant="outline"
-              size="lg"
-              aria-expanded={isGalleryExpanded}
-              onClick={() => setIsGalleryExpanded((current) => !current)}
-            >
-              <span>{isGalleryExpanded ? '접기' : '더보기'}</span>
-              <span className="gallery-toggle__arrow" aria-hidden="true" />
-            </Button>
-          </>
-        ) : null}
+        <div className="gallery-pagination" aria-label="사진 선택">
+          {galleryImages.map((image, index) => (
+            <button
+              className={index === activeGalleryIndex ? 'is-active' : ''}
+              type="button"
+              aria-label={`${index + 1}번째 사진 보기`}
+              aria-current={index === activeGalleryIndex ? 'true' : undefined}
+              onClick={() => selectGalleryImage(index)}
+              key={image.src}
+            />
+          ))}
+        </div>
+        <p className="gallery-caption">우리의 순간을 담았습니다.</p>
       </section>
 
       <section className="gift section" aria-labelledby="gift-title">
@@ -539,31 +548,6 @@ function App() {
         </p>
         <strong>지원과 제원 드림</strong>
       </section>
-
-      {selectedGalleryImage ? (
-        <section
-          className="gallery-viewer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="갤러리 사진 크게 보기"
-          onClick={() => setSelectedGalleryImage(null)}
-        >
-          <Button
-            className="gallery-viewer__close"
-            variant="ghost"
-            size="icon"
-            aria-label="갤러리 사진 닫기"
-            onClick={() => setSelectedGalleryImage(null)}
-          >
-            ×
-          </Button>
-          <img
-            src={selectedGalleryImage.src}
-            alt={selectedGalleryImage.alt}
-            onClick={(event) => event.stopPropagation()}
-          />
-        </section>
-      ) : null}
 
       {isHostContactOpen ? (
         <section
