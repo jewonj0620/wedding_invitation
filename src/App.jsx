@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import heroImage from './assets/theme1.png'
+import heroImage from './assets/cosmic-cover.png'
 import kakaoPayButton from './assets/kakaopay.svg'
 import { Button } from './components/ui/Button'
 import { buttonVariants } from './components/ui/buttonVariants'
@@ -114,10 +114,10 @@ const reorderedGalleryImages = [
   ...sortedGalleryImages.slice(1, -1),
 ].filter(Boolean)
 
-const galleryImages = reorderedGalleryImages.map(([, src], index) => ({
-    src,
-    alt: `지원과 제원의 웨딩 사진 ${index + 1}`,
-  }))
+const galleryImages = reorderedGalleryImages.slice(3).map(([, src], index) => ({
+  src,
+  alt: `지원과 제원의 웨딩 사진 ${index + 1}`,
+}))
 
 const october2026LeadingEmptyDays = 4
 const october2026Holidays = new Set([3, 9])
@@ -436,7 +436,7 @@ function App() {
         >
           {galleryImages.map((image, index) => (
             <figure
-              className={`gallery-slide ${index === 2 || index === 3 ? 'gallery-slide--fill' : ''}`}
+              className={`gallery-slide ${index === 0 ? 'gallery-slide--fill' : ''}`}
               key={image.src}
             >
               <img
