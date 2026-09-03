@@ -27,7 +27,7 @@ const mapPlaceName = '한국은행'
 const encodedMapPlaceName = encodeURIComponent(mapPlaceName)
 const mapLatitude = '37.5620000'
 const mapLongitude = '126.9806611'
-const displayMapUrl = `https://www.google.com/maps?output=embed&q=${mapLatitude},${mapLongitude}&hl=ko&z=17`
+const displayMapUrl = `https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${mapLatitude},${mapLongitude}!6i17!3m1!1sko!5m1!1sko`
 const mapLinks = [
   {
     label: '네이버 맵',
