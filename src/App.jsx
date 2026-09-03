@@ -263,11 +263,11 @@ function App() {
             우리들의 결혼식에 초대합니다.
           </p>
           <h1 id="invitation-title">
-            <span>{couple.bride.name}</span>
+            <span>{couple.groom.name}</span>
             <span className="name-divider" aria-hidden="true">
               🤍
             </span>
-            <span>{couple.groom.name}</span>
+            <span>{couple.bride.name}</span>
           </h1>
           <p className="cover__date">2026년 10월 24일 토요일</p>
           <p className="cover__time">낮 12시 30분</p>
