@@ -546,7 +546,7 @@ function App() {
           <br />
           저희에게는 가장 큰 선물입니다.
         </p>
-        <strong>지원과 제원 드림</strong>
+        <strong>제원과 지원 드림</strong>
       </section>
 
       {isHostContactOpen ? (
